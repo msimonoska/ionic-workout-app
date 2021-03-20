@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="clear" color="dark" (click)="dismiss()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div *ngFor="let e of exercises; let i = index">
+    <div *ngIf="currentIndex == i">
+      <div class="ion-text-center">
+        <img [src]="e.image" alt="">
+      </div>
+      <div>
+        <b>x {{e.reps}} repetitions</b>
+      </div>
+      <div [innerHTML]="e.description"></div>
+    </div>
+
+  </div>
+
+  <div>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6">
+          <ion-button fill="clear" [disabled]="currentIndex==0" (click)="currentIndex=currentIndex-1">
+            <ion-icon name="arrow-back"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-col size="6">
+          <ion-button fill="clear" *ngIf="currentIndex!=exercises.length-1" (click)="currentIndex = currentIndex+1">
+            <ion-icon name="arrow-forward"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" *ngIf="currentIndex==exercises.length-1" (click)="finishDayWorkout()">
+            Done
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+</ion-content>

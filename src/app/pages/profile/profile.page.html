@@ -1,0 +1,131 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+  <div class="ion-padding">
+    <form [formGroup]="form">
+      <div>
+        <ion-item lines="none">
+          <ion-label position="floating">First name</ion-label>
+          <ion-input type="text" formControlName="first_name"></ion-input>
+        </ion-item>
+      </div>
+      <ion-note *ngIf="saveClicked && !form.controls.first_name.valid">
+        <ion-label color="danger">*This field is required</ion-label>
+      </ion-note>
+
+      <div>
+        <ion-item lines="none">
+          <ion-label position="floating">Last name</ion-label>
+          <ion-input type="text" formControlName="last_name"></ion-input>
+        </ion-item>
+      </div>
+      <ion-note *ngIf="saveClicked && !form.controls.last_name.valid">
+        <ion-label color="danger">*This field is required</ion-label>
+      </ion-note>
+      <div>
+        <ion-item lines="none">
+          <ion-label position="floating">Age</ion-label>
+          <ion-input type="number" formControlName="age"></ion-input>
+        </ion-item>
+      </div>
+      <ion-note *ngIf="saveClicked && !form.controls.age.valid">
+        <ion-label color="danger">*This field is required</ion-label>
+      </ion-note>
+
+      <div>
+        <ion-item lines="none">
+          <ion-label position="floating">Weight in kg</ion-label>
+          <ion-input type="number" formControlName="weight"></ion-input>
+        </ion-item>
+      </div>
+      <ion-note *ngIf="saveClicked && !form.controls.weight.valid">
+        <ion-label color="danger">*This field is required</ion-label>
+      </ion-note>
+      <div>
+        <ion-item lines="none">
+          <ion-label position="floating">Height in cm</ion-label>
+          <ion-input type="number" formControlName="height"></ion-input>
+        </ion-item>
+      </div>
+      <ion-note *ngIf="saveClicked && !form.controls.height.valid">
+        <ion-label color="danger">*This field is required</ion-label>
+      </ion-note>
+
+      <ion-radio-group formControlName="gender">
+        <ion-list-header>
+          <ion-label>Gender</ion-label>
+        </ion-list-header>
+
+        <ion-item>
+          <ion-label>Male</ion-label>
+          <ion-radio slot="start" value="m"></ion-radio>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Female</ion-label>
+          <ion-radio slot="start" value="f"></ion-radio>
+        </ion-item>
+
+      </ion-radio-group>
+      <ion-note *ngIf="saveClicked && !form.controls.gender.valid">
+        <ion-label color="danger">*This field is required</ion-label>
+      </ion-note>
+
+
+      <ion-radio-group formControlName="activity_level">
+        <ion-list-header>
+          <ion-label>Activity</ion-label>
+        </ion-list-header>
+
+        <ion-item>
+          <ion-label>Sedentary</ion-label>
+          <ion-radio slot="start" value="0"></ion-radio>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Lightly active</ion-label>
+          <ion-radio slot="start" value="1"></ion-radio>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Moderatetely active</ion-label>
+          <ion-radio slot="start" value="2"></ion-radio>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Very active</ion-label>
+          <ion-radio slot="start" value="3"></ion-radio>
+        </ion-item>
+
+        <ion-item lines="none">
+          <ion-label>Extra active</ion-label>
+          <ion-radio slot="start" value="4"></ion-radio>
+        </ion-item>
+
+      </ion-radio-group>
+      <ion-note *ngIf="saveClicked && !form.controls.activity_level.valid">
+        <ion-label color="danger">*This field is required</ion-label>
+      </ion-note>
+
+      <div class="ion-padding ion-margin-top">
+        <ion-button expand="block" (click)="saveForm()">Save</ion-button>
+      </div>
+
+      <div *ngIf="profileService.profile.calorieIntake" class="ion-padding">
+        <ion-label>Suggested calorie intake: <br><b>{{profileService.profile.calorieIntake|number:'1.2-2'}}</b></ion-label>
+      </div>
+      <div *ngIf="profileService.profile.bmi" class="ion-padding">
+        <ion-label><b>{{profileService.bmi}}</b></ion-label>
+      </div>
+    </form>
+
+  </div>
+
+
+</ion-content>

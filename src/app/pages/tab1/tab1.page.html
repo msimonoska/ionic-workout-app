@@ -1,0 +1,49 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Work out
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <div *ngIf="workoutService.workout.level==''">
+    <div class="ion-padding ion-text-center">
+      Choose your workout level
+    </div>
+
+    <div class="ion-padding">
+      <div class="ion-text-center" (click)="level='light'">
+        <ion-label [color]="level=='light'?'primary':''">Light</ion-label>
+      </div>
+      <div class="ion-text-center"  (click)="level='moderate'">
+        <ion-label [color]="level=='moderate'?'primary':''">Moderate</ion-label>
+      </div>
+      <div class="ion-text-center"  (click)="level='advanced'">
+        <ion-label [color]="level=='advanced'?'primary':''">Advanced</ion-label>
+      </div>
+    </div>
+
+    <div class="ion-padding ion-text-center">
+      <ion-button (click)="setLevel()">
+        Start
+      </ion-button>
+
+    </div>
+  </div>
+
+
+  <div *ngIf="workoutService.workout.level!=''" class="ion-padding">
+    <div class="wrapper">
+      <div *ngFor="let item of workoutService.days" class="ion-text-center">
+        <div [class]="item.day==workoutService.workout.active_day?'circle-active':(item.finished?'circle-finished':'circle')" (click)="presentModal(item.day)">
+          <ion-label color="light" *ngIf="!item.finished">{{item.day}}</ion-label>
+          <ion-icon color="light" name="checkmark" *ngIf="item.finished">{{item.day}}</ion-icon>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</ion-content>

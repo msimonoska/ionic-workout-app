@@ -1,16 +1,128 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 2
+      Food diary
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="4" class="ion-text-center">Left</ion-col>
+        <ion-col size="4" class="ion-text-center">Recommended</ion-col>
+        <ion-col size="4" class="ion-text-center">Taken</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="4" class="ion-text-center">{{(left_calories<0?0:left_calories)|number:'1.2-2'}}</ion-col>
+        <ion-col size="4" class="ion-text-center">{{profileService.profile.calorieIntake|number:'1.2-2'}}</ion-col>
+        <ion-col size="4" class="ion-text-center">{{foodDiaryService.get_cal_intake()|number:'1.2-2'}}</ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div>
+    <ion-card>
+      <ion-card-header>
+        <ion-toolbar>
+          Breakfast
+          <ion-buttons slot="end">
+            <ion-button fill="clear" (click)="scan('breakfast')">
+              <ion-icon name="add"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-item lines="none" *ngFor="let item of foodDiaryService.breakfast; let i = index">
+            {{item.name}}
+            <ion-button slot="end" fill="clear" size="small" (click)="foodDiaryService.remove_product_from('breakfast',i)">
+              <ion-icon name="trash" color="danger"></ion-icon>
+            </ion-button>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <div>
+    <ion-card>
+      <ion-card-header>
+        <ion-toolbar>
+          Lunch
+          <ion-buttons slot="end">
+            <ion-button fill="clear">
+              <ion-icon name="add"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-item lines="none" *ngFor="let item of foodDiaryService.lunch">
+            {{item.name}}
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <div>
+    <ion-card>
+
+      <ion-card-header>
+        <ion-toolbar>
+          Dinner
+          <ion-buttons slot="end">
+            <ion-button fill="clear">
+              <ion-icon name="add"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-item lines="none" *ngFor="let item of foodDiaryService.dinner">
+            {{item.name}}
+          </ion-item>
+        </ion-list>
+
+      </ion-card-content>
+    </ion-card>
+
+  </div>
+  <div>
+    <ion-card>
+      <ion-card-header>
+        <ion-toolbar>
+          Snacks
+          <ion-buttons slot="end">
+            <ion-button fill="clear">
+              <ion-icon name="add"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-item lines="none" *ngFor="let item of foodDiaryService.snacks">
+            {{item.name}}
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <div>
+    <ion-card>
+
+      <ion-card-header>
+        Water intake
+      </ion-card-header>
+      <ion-card-content>
+        glasses
+      </ion-card-content>
+    </ion-card>
+  </div>
 
 </ion-content>

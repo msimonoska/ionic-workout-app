@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {ActionSheetService} from '../../services/action-sheet/action-sheet.service';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
 @Component({
   selector: 'app-tabs',
@@ -8,29 +8,24 @@ import {ActionSheetService} from '../../services/action-sheet/action-sheet.servi
 })
 export class TabsPage {
 
-  constructor(private actionSheetService: ActionSheetService) {}
+  constructor(private camera: Camera) {}
 
-  showCameraOptions(){
-    console.log("function clicked")
+  showCamera(){
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    }
 
-    this.actionSheetService.presentActionSheet("Options",[
-      {
-        text: 'Camera',
-        handler: () => {
-          console.log('Camera clicked');
-        }
-      },
-      {
-        text: 'Barcode Scanner',
-        handler: () => {
-          console.log('Barcode Scanner clicked');
-        }
-      },
-      {
-        text: 'Cancel',
-        role: 'cancel'
-      }
-    ])
+    this.camera.getPicture(options).then((imageData) => {
+      // imageData is either a base64 encoded string or a file URI
+      // If it's base64 (DATA_URL):
+      let base64Image = 'data:image/jpeg;base64,' + imageData;
+    }, (err) => {
+      // Handle error
+    });
+
   }
 
 }

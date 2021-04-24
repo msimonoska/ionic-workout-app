@@ -11,7 +11,7 @@ export class ProfilePage implements OnInit {
 
   form: FormGroup;
   constructor(private formBuilder: FormBuilder, public profileService: ProfileService) {
-    this.profileService.initProfile();
+
     console.log(this.profileService.profile);
 
     this.form = this.formBuilder.group({

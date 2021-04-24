@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import {StorageService} from './services/storage/storage.service';
+import {ProfileService} from './services/profile/profile.service';
+import {FoodDiaryService} from './services/food-diary/food-diary.service';
 
 const routes: Routes = [
   {
@@ -16,8 +18,13 @@ const routes: Routes = [
 })
 export class AppRoutingModule {
 
-  constructor(private storageService: StorageService) {
+  constructor(private storageService: StorageService,
+              private profileService: ProfileService,
+              private foodDiaryService: FoodDiaryService) {
 
-    this.storageService.getStorageObject();
+    this.storageService.getStorageObject().then(()=>{
+      this.profileService.initProfile();
+      this.foodDiaryService.initFoodDiary()
+    });
   }
 }

@@ -22,6 +22,13 @@ export class StorageService {
     workout:{
       active_day: 1,
       level:''
+    },
+    food_diary:{
+      breakfast:[],
+      lunch:[],
+      dinner:[],
+      snacks:[],
+      water_intake:[]
     }
 
   };
@@ -34,13 +41,19 @@ export class StorageService {
   }
 
   getStorageObject() {
-    this.storage.get('wokout_app_storage').then((val) => {
-      if (val) {
-        this.storage_object = val;
-      } else {
-        this.resetStorageObject();
-      }
-    });
+
+    return new Promise(resolve => {
+      this.storage.get('wokout_app_storage').then((val) => {
+        if (val) {
+          this.storage_object = val;
+        } else {
+          this.resetStorageObject();
+        }
+
+        resolve(true);
+      });
+    })
+
   }
 
   resetStorageObject() {
@@ -60,6 +73,13 @@ export class StorageService {
       workout:{
         active_day: 1,
         level:''
+      },
+      food_diary:{
+        breakfast:[],
+        lunch:[],
+        dinner:[],
+        snacks:[],
+        water_intake:[]
       }
 
     };

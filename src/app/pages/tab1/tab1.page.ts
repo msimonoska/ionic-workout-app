@@ -25,6 +25,7 @@ export class Tab1Page {
 
 
   async presentModal(day) {
+    console.log(day)
     if(day>this.workoutService.workout.active_day){
       this.alertService.presentAlert({
         message: 'This day is locked.',

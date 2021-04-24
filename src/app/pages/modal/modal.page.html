@@ -10,21 +10,72 @@
 </ion-header>
 
 <ion-content>
+  <div *ngIf="type!='product'">
+    <div *ngFor="let e of exercises; let i = index">
+      <div *ngIf="currentIndex == i">
+        <div class="ion-text-center">
+          <img [src]="e.image" alt="">
+        </div>
+        <div>
+          <b>x {{e.reps}} repetitions</b>
+        </div>
+        <div [innerHTML]="e.description"></div>
+      </div>
 
-  <div *ngFor="let e of exercises; let i = index">
-    <div *ngIf="currentIndex == i">
-      <div class="ion-text-center">
-        <img [src]="e.image" alt="">
-      </div>
-      <div>
-        <b>x {{e.reps}} repetitions</b>
-      </div>
-      <div [innerHTML]="e.description"></div>
     </div>
+  </div>
+  <div *ngIf="type=='product' && product">
+      <div>
+        <img src="{{product.image}}" alt="" width="100%">
 
+        <div>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">Energy per 100g</ion-col>
+              <ion-col size="6">{{product.nutrients.energy_cal_100g}} kcal</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="6">Fat per 100g</ion-col>
+              <ion-col size="6">{{product.nutrients.fat_100g}}g</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="6">Carbs per 100g</ion-col>
+              <ion-col size="6">{{product.nutrients.carbohydrates}}g</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="6">Proteins per 100g</ion-col>
+              <ion-col size="6">{{product.nutrients.proteins_100g}}g</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="6">Fiber per 100g</ion-col>
+              <ion-col size="6">{{product.nutrients.fiber}}g</ion-col>
+            </ion-row>
+            <ion-row class="ion-padding-top">
+              <ion-col size="12">
+                <ion-item class="ion-no-margin ion-no-padding">
+                  <ion-label position="floating">Your intake in grams</ion-label>
+                  <ion-input [(ngModel)]="product.taken_g" type="number" (ionChange)="calculateCaloriesOnInput()">
+                  </ion-input>
+                </ion-item>
+
+              </ion-col>
+            </ion-row>
+            <ion-row class="ion-padding-top" *ngIf="product.taken_cal>=0">
+              <ion-col size="12">
+                <b>Calorie intake {{product.taken_cal|number:'1.2-2'}}</b>
+              </ion-col>
+
+            </ion-row>
+          </ion-grid>
+        </div>
+      </div>
   </div>
 
-  <div>
+
+</ion-content>
+
+<ion-footer >
+  <div *ngIf="type!='product'">
     <ion-grid>
       <ion-row>
         <ion-col size="6">
@@ -32,7 +83,7 @@
             <ion-icon name="arrow-back"></ion-icon>
           </ion-button>
         </ion-col>
-        <ion-col size="6">
+        <ion-col size="6" class="ion-text-end">
           <ion-button fill="clear" *ngIf="currentIndex!=exercises.length-1" (click)="currentIndex = currentIndex+1">
             <ion-icon name="arrow-forward"></ion-icon>
           </ion-button>
@@ -43,5 +94,15 @@
       </ion-row>
     </ion-grid>
   </div>
-
-</ion-content>
+  <div *ngIf="type=='product' && product">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12">
+          <ion-button (click)="addFood()" expand="block">
+            <ion-icon name="add"></ion-icon> Add food
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-footer>

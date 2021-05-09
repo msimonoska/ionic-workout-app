@@ -5,6 +5,7 @@ import {WorkoutService} from '../../services/workout/workout.service';
 import {LoaderService} from '../../services/loader/loader.service';
 import {ApiService} from '../../services/api/api.service';
 import {AlertService} from '../../services/alert/alert.service';
+import {ImageService} from '../../services/image/image.service';
 
 @Component({
   selector: 'app-modal',
@@ -17,6 +18,8 @@ export class ModalPage implements OnInit {
   @Input('day') day: number = 0;
   @Input('type') type: any = '';
   @Input('barcode') barcode: any = null;
+  @Input('image') image: any = null;
+  @Input('index') index: number = -1;
 
   constructor(
     private modalController: ModalController,
@@ -24,7 +27,8 @@ export class ModalPage implements OnInit {
     private workoutService: WorkoutService,
     private loader: LoaderService,
     private apiService: ApiService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private imageService: ImageService
   ) {
   }
 
@@ -38,9 +42,14 @@ export class ModalPage implements OnInit {
   ionViewWillEnter() {
     if (this.barcode && this.type == 'product') {
       this.getProductDetails();
-    } else {
+    } else if(this.type!='image'){
       this.initExercises();
     }
+    else{
+      // this.title = new Date(this.image.date);
+    }
+
+    console.log("the title is",this.title)
   }
 
 
@@ -115,5 +124,11 @@ export class ModalPage implements OnInit {
 
   addFood() {
     this.modalController.dismiss(this.product);
+  }
+
+
+  deleteImage(){
+    this.imageService.remove_image(this.index);
+    this.dismiss();
   }
 }

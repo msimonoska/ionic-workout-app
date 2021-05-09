@@ -29,7 +29,8 @@ export class StorageService {
       dinner:[],
       snacks:[],
       water_intake:[]
-    }
+    },
+    images:[]
 
   };
 
@@ -45,11 +46,13 @@ export class StorageService {
     return new Promise(resolve => {
       this.storage.get('wokout_app_storage').then((val) => {
         if (val) {
+
           this.storage_object = val;
         } else {
           this.resetStorageObject();
         }
 
+        console.log(this.storage_object)
         resolve(true);
       });
     })
@@ -80,18 +83,19 @@ export class StorageService {
         dinner:[],
         snacks:[],
         water_intake:[]
-      }
+      },
+      images:[]
 
     };
     this.updateStorageObject();
   }
 
-  set(key, value) {
+  set(key:string, value:any) {
     this.storage_object[key] = value;
     this.updateStorageObject();
   }
 
-  get(key) {
+  get(key:string) {
     return this.storage_object[key];
   }
 }

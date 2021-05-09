@@ -3,6 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import {StorageService} from './services/storage/storage.service';
 import {ProfileService} from './services/profile/profile.service';
 import {FoodDiaryService} from './services/food-diary/food-diary.service';
+import {ImageService} from './services/image/image.service';
 
 const routes: Routes = [
   {
@@ -20,11 +21,14 @@ export class AppRoutingModule {
 
   constructor(private storageService: StorageService,
               private profileService: ProfileService,
-              private foodDiaryService: FoodDiaryService) {
+              private foodDiaryService: FoodDiaryService,
+              private imageService: ImageService) {
 
     this.storageService.getStorageObject().then(()=>{
+
       this.profileService.initProfile();
-      this.foodDiaryService.initFoodDiary()
+      this.foodDiaryService.initFoodDiary();
+      this.imageService.initImages();
     });
   }
 }

@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content>
-  <div *ngIf="type!='product'">
+  <div *ngIf="type!='product' && type!='image'">
     <div *ngFor="let e of exercises; let i = index">
       <div *ngIf="currentIndex == i">
         <div class="ion-text-center">
@@ -71,11 +71,14 @@
       </div>
   </div>
 
+  <div *ngIf="type=='image'">
+    <img [src]="image.image" alt="">
+  </div>
 
 </ion-content>
 
 <ion-footer >
-  <div *ngIf="type!='product'">
+  <div *ngIf="type!='product' && type!='image'">
     <ion-grid>
       <ion-row>
         <ion-col size="6">
@@ -105,4 +108,11 @@
       </ion-row>
     </ion-grid>
   </div>
+
+  <div *ngIf="type=='image'">
+    <ion-button fill="clear" expand="block" (click)="deleteImage()">
+      <ion-icon name="trash" color="danger"></ion-icon> Remove
+    </ion-button>
+  </div>
+
 </ion-footer>
